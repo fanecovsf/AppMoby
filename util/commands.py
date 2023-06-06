@@ -106,6 +106,11 @@ class Select:
         pass
         
     def login_authentication(email, password):
+        if '@' not in email:
+            email = email + '@mobyweb.com.br'
+        else:
+            pass
+
         email = ("'" + email + "'")
         password = ("'" + password + "'")
 
