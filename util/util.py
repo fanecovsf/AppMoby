@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
 import os
+import pandas as pd 
 
 #Parameters
 #-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -20,14 +21,12 @@ class Util:
 
     def deleteSchedule(name):
 
-        with open(SCHEDULE_PATH, 'r', encoding='UTF-8') as file:
-            lines = file.readlines()
+        df = pd.read_table(SCHEDULE_PATH, sep='|', header=0)
 
-        for i, line in enumerate(lines):
-            if name in line:
-                del lines[i]
-                break
+        df.columns = [col.strip() for col in df.columns]
 
+        df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
 
-        with open(SCHEDULE_PATH, 'w', encoding='UTF-8') as file:
-            file.write(str(lines))
+        df.drop(df.loc[df['Nome do agendamento'] == name].index, inplace=True)
+
+        df.to_csv(SCHEDULE_PATH, sep='|')

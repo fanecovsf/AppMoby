@@ -6,7 +6,7 @@ import pandas as pd
 
 #Parameters
 #-------------------------------------------------------------------------------------------------------------------------------------------------
-STATIC_PATH = os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(__file__)))))) + '\static'
+STATIC_PATH = (os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(__file__))))) + '\static'
 
 SCHEDULE_PATH = STATIC_PATH + '\schedule.txt'
 

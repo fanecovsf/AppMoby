@@ -3,7 +3,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import PySimpleGUI as sg
 import util.commands as command
-import classes.layouts.layoutPattern as pattern
+import layouts.layoutPattern as pattern
 from util.util import Util
 import pandas as pd
 import datetime
@@ -73,10 +73,14 @@ class Scheduler(WindowPattern):
                 df = pd.read_table(SCHEDULE_PATH, encoding='UTF-8', sep='|')
                 df.columns = [col.strip() for col in df.columns]
 
-                if self.value['-TABLE-'][0] != -1:
-                    selected_data = df.loc[self.value['-TABLE-'][0], 'Nome do agendamento']
-                    Util.deleteSchedule(selected_data)
-                    window['-TABLE-'].update(values=df.values.tolist())
+                rowIndex = self.value['-TABLE-'][0]
+                selectedData = list(df.iloc[rowIndex])
+
+                print(selectedData[0])
+
+                Util.deleteSchedule(selectedData[0])
+
+                window['-TABLE-'].update()
 
 
 class CreateSchedule(WindowPattern):
